@@ -9,14 +9,17 @@ const api = axios.create({
   },
 });
 
-// Request interceptor (optional - for adding auth tokens, etc.)
+// Request interceptor - add JWT token to requests
 api.interceptors.request.use(
   (config) => {
     // Add auth token if available
-    // const token = localStorage.getItem('token');
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    } else {
+      // Debug: log when token is missing
+      console.warn('No token found in localStorage for request:', config.url);
+    }
     return config;
   },
   (error) => {
@@ -56,6 +59,12 @@ export const apiService = {
   // Authentication
   register: (data) => api.post('/auth/register', data),
   login: (data) => api.post('/auth/login', data),
+
+  // Knapsack endpoints
+  solveKnapsack: (data) => api.post('/knapsack/solve', data),
+  saveKnapsack: (data) => api.post('/knapsack/save', data),
+  getKnapsackHistory: (params = {}) => api.get('/knapsack/history', { params }),
+  getKnapsackProblem: (problemId) => api.get(`/knapsack/history/${problemId}`),
 };
 
 export default api;
