@@ -502,4 +502,3 @@ function KnapsackSolver() {
 }
 
 export default KnapsackSolver
-
