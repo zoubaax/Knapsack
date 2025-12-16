@@ -50,15 +50,17 @@ lerna-debug.log*
 
 # IDE
 .vscode/
+!.vscode/extensions.json
 .idea/
 *.swp
 *.swo
 *~
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # OS
 .DS_Store
 Thumbs.db
-
-# Git
-.git/
-
